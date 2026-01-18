@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Password Strength Testing Tool</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #f4f4f4;
+      padding: 40px;
+    }
+    .box {
+      background: white;
+      padding: 20px;
+      width: 350px;
+      margin: auto;
+      border-radius: 8px;
+      box-shadow: 0 0 10px #ccc;
+    }
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+    }
+    #result {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="box">
+  <h2>Test Login System</h2>
+
+  <input type="text" id="username" placeholder="Username">
+  <input type="password" id="password" placeholder="Password">
+
+  <button onclick="login()">Login</button>
+
+  <button onclick="bruteForce()">Test Password Strength</button>
+
+  <div id="result"></div>
+</div>
+
+<script>
+  // Dummy stored credentials
+  const realUsername = "testuser";
+  const realPassword = "admin123";
+
+  // Password list for brute force simulation
+  const passwordList = [
+    "123456",
+    "password",
+    "admin",
+    "admin123",
+    "welcome",
+    "qwerty"
+  ];
+
+  function login() {
+    let user = document.getElementById("username").value;
+    let pass = document.getElementById("password").value;
+
+    if (user === realUsername && pass === realPassword) {
+      document.getElementById("result").innerText = "Login Successful";
+    } else {
+      document.getElementById("result").innerText = "Login Failed";
+    }
+  }
+
+  function bruteForce() {
+    let attempts = 0;
+    let startTime = Date.now();
+
+    for (let i = 0; i < passwordList.length; i++) {
+      attempts++;
+      if (passwordList[i] === realPassword) {
+        let endTime = Date.now();
+        document.getElementById("result").innerText =
+          "Password Cracked!\nAttempts: " + attempts +
+          "\nTime Taken: " + ((endTime - startTime) / 1000) + " seconds";
+        return;
+      }
+    }
+
+    document.getElementById("result").innerText =
+      "Password Not Found. Strong Password!";
+  }
+</script>
+
+</body>
+</html>
